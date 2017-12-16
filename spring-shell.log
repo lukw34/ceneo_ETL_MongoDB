@@ -4,3 +4,22 @@
 1513434265775:help
 1513434399602:extract
 1513434478608:extract --id 56829846
+1513441066424:exit
+1513441231819:sdfsdf
+1513441235117:sdfsd
+1513441236149:sdfsdf
+1513441236845:sdf
+1513441237925:sd
+1513443327597:extract --id asdas
+1513443623483:extract --id 2017-12-16 17:55:12.575  INFO 27362 --- [           main] o.s.j.e.a.AnnotationMBeanExporter        : Registering beans for JMX exposure on startup
+1513443652005:extract --id 56829846
+1513447044302:e --id # Ignore everything in this directory
+1513447044308:*
+1513447044310:# Except this file
+1513447046156:!.gitignore
+1513447056581:e
+1513447066810:e --id # Ignore everything in this directory
+1513447066814:*
+1513447066817:# Except this file
+1513447082866:!.gitignoree --id 56829846
+1513447144288:extract --id 56829846

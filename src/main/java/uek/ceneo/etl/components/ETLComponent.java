@@ -6,21 +6,21 @@ import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
 import uek.ceneo.etl.services.ETL;
+import uek.ceneo.etl.services.FileService;
 
 @ShellComponent
 public class ETLComponent {
     private final ETL ETLCeneoService;
 
     @Autowired
-    public ETLComponent(ETL ETLCeneoService) {
+    public ETLComponent(ETL ETLCeneoService, FileService fileService) {
         this.ETLCeneoService = ETLCeneoService;
     }
 
-    @ShellMethod("Wykonuje operacje EXTRACT dla prouktu o podanym id")
+    @ShellMethod(value = "Wykonuje operacje EXTRACT dla prouktu o podanym id", key = {"E", "extract", "e"})
     public String extract(
-            @ShellOption String id
+            @ShellOption(help = "Identyfikator produktu") String id
     ) {
-
         ETLCeneoService.extract(id);
         return id;
     }
