@@ -9,11 +9,14 @@ public class CeneoProduct implements Product {
     private String model;
     private String additionalRemarks;
     private String category;
+    private String id;
 
     private ArrayList<Opinion> opinions;
 
-    CeneoProduct(String category) {
+    CeneoProduct(String id, String category) {
+        this.opinions = new ArrayList<>();
         this.category = category;
+        this.id = id;
     }
 
     @Override
@@ -31,19 +34,5 @@ public class CeneoProduct implements Product {
 
     public void removeOpinion(int id) {
         opinions.remove(id);
-    }
-
-    public void showAllInformation() {
-        System.out.println();
-        System.out.println("Kategoria: " + category);
-        System.out.println("Rodzaj: " + type);
-        System.out.println("Marka: " + mark);
-        System.out.println("Model: " + model);
-        System.out.println("Dodatkowe uwagi: " + additionalRemarks);
-        System.out.println();
-        int i = 0;
-        for (Opinion opinion : opinions) {
-            System.out.println((++i) + ")\n" + opinion);
-        }
     }
 }

@@ -18,10 +18,19 @@ public class ETLComponent {
     }
 
     @ShellMethod(value = "Wykonuje operacje EXTRACT dla prouktu o podanym id", key = {"E", "extract", "e"})
-    public String extract(
+    public void extract(
             @ShellOption(help = "Identyfikator produktu") String id
     ) {
         ETLCeneoService.extract(id);
-        return id;
     }
+
+
+    @ShellMethod(value = "Wykonuje operacje TRANSFORM dla prouktu o podanym id", key = {"T", "transform", "t"})
+    public void transform(
+            @ShellOption(help = "Identyfikator produktu") String id
+    ) {
+        ETLCeneoService.transform(id);
+    }
+
+
 }

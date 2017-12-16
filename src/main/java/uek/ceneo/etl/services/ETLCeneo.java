@@ -23,11 +23,12 @@ public class ETLCeneo implements ETL {
 
     @Override
     public void transform(String id) {
-
+        String htmlDocument = fileService.read(id + ".html");
+        Scrapper ceneoScrapper = new Scrapper(id);
+        ceneoScrapper.getProductInformation(htmlDocument);
     }
 
     @Override
     public void load(String id) {
-
     }
 }
