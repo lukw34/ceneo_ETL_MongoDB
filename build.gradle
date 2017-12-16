@@ -1,0 +1,32 @@
+buildscript {
+	ext {
+		springBootVersion = '1.5.9.RELEASE'
+	}
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+
+group = 'uek'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
+
+repositories {
+	mavenCentral()
+	maven { url "https://repo.spring.io/milestone" }
+}
+
+
+dependencies {
+	compile('org.jsoup:jsoup:1.11.1')
+	compile('org.mongodb:mongodb-driver:3.3.0')
+	compile('org.springframework.shell:spring-shell-starter:2.0.0.M2')
+	testCompile('org.springframework.boot:spring-boot-starter-test')
+}
