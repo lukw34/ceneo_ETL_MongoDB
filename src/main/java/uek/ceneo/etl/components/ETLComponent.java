@@ -6,7 +6,6 @@ import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
 import uek.ceneo.etl.services.ETL;
-import uek.ceneo.etl.services.FileService;
 
 @ShellComponent
 public class ETLComponent {
@@ -30,6 +29,14 @@ public class ETLComponent {
             @ShellOption(help = "Identyfikator produktu") String id
     ) {
         ETLCeneoService.transform(id);
+    }
+
+
+    @ShellMethod(value = "Wykonuje operacje LOAD dla prouktu o podanym id", key = {"L", "load", "l"})
+    public void load(
+            @ShellOption(help = "Identyfikator produktu") String id
+    ) {
+        ETLCeneoService.load(id);
     }
 
 

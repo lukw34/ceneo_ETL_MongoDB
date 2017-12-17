@@ -27,6 +27,7 @@ repositories {
 dependencies {
 	compile('org.json:json:20160810')
 	compile('org.jsoup:jsoup:1.11.1')
-	compile('org.mongodb:mongodb-driver:3.3.0')
+	compile('org.mongodb:bson:3.6.0')
+	compile('org.mongodb:mongodb-driver:3.6.0')
 	compile('org.springframework.shell:spring-shell-starter:2.0.0.M2')
 }

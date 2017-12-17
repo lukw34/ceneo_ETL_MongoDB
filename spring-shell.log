@@ -39,3 +39,19 @@
 1513504792410:compile('org.json:json:20160810')
 1513504798389:T --id shell:> compile('org.json:json:20160810')
 1513504823741:T --id 37377796
+1513510143663:L --id   @ShellMethod(value = "Wykonuje operacje TRANSFORM dla prouktu o podanym id", key = {"T", "transform", "t"})
+1513510159580:L --id     }L --id   @ShellMethod(value = "Wykonuje operacje TRANSFORM dla prouktu o podanym id", key = {"T", "transform", "t"})java.lang.IllegalArgumentException: Too many arguments: the following could not be mapped to parameters: '= Wykonuje operacje TRANSFORM dla prouktu o podanym id , key = {T , transform , t })'
+1513510181920:L --id 37377796
+1513510425034:t --id 37377796
+1513510449231:l --id 37377796
+1513510578856:t --id compile('org.mongodb:mongodb-driver:3.6.0')
+1513510593327:t --id 37377796
+1513511131904:T --id nvalid hexadecimal representation of an ObjectId
+1513511136184:t --id 37377796
+1513511188822:e --id 56829846
+1513511196231:t --id 56829846
+1513511203512:l --id 56829846
+1513511871108:L --id 56829846
+1513520604322:L --i readStartDocument can only be called when CurrentBSONType is DOCUMENT, not when CurrentBSONType is ARRAY.
+1513520607279:L --id 56829846
+1513520918514:L --id 37377796

@@ -98,7 +98,6 @@ public class CeneoParser implements Parser<CeneoProduct> {
         String category = null;
 
         for (Element el : elements) {
-            System.out.println(category);
             category = el.select("span.breadcrumb span").eq(1).text();
         }
 

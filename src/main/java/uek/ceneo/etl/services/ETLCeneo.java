@@ -8,6 +8,7 @@ import uek.ceneo.etl.models.ReviewList;
 import uek.ceneo.etl.utils.scrapper.CeneoProduct;
 import uek.ceneo.etl.utils.scrapper.Scrapper;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -16,10 +17,12 @@ public class ETLCeneo implements ETL {
 
     private final FileService fileService;
     private final TransformationService ceneoTransformationService;
+    private final MongoService ceneoMongoService;
 
 
     @Autowired
-    public ETLCeneo(FileService fileService, TransformationService ceneoTransformationService) {
+    public ETLCeneo(FileService fileService, TransformationService ceneoTransformationService, MongoService ceneoMongoService) {
+        this.ceneoMongoService = ceneoMongoService;
         this.ceneoTransformationService = ceneoTransformationService;
         this.fileService = fileService;
     }
@@ -50,6 +53,10 @@ public class ETLCeneo implements ETL {
 
     @Override
     public void load(String id) {
+        String jsonProduct = fileService.read("product_" + id);
+        String jsonReviews = fileService.read("reviews_" + id);
+        boolean isInsertProduct = ceneoMongoService.insert("products", jsonProduct);
+        ArrayList<Boolean> isOpinionsInserted = ceneoMongoService.insertArray("reviews", jsonReviews);
 
     }
 }
