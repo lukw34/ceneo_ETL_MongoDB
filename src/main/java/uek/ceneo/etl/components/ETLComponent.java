@@ -13,7 +13,7 @@ public class ETLComponent {
     private final ETL ETLCeneoService;
 
     @Autowired
-    public ETLComponent(ETL ETLCeneoService, FileService fileService) {
+    public ETLComponent(ETL ETLCeneoService) {
         this.ETLCeneoService = ETLCeneoService;
     }
 

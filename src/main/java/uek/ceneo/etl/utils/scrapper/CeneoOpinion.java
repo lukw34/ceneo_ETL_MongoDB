@@ -1,7 +1,7 @@
 package uek.ceneo.etl.utils.scrapper;
 
 
-public class Opinion {
+public class CeneoOpinion {
 
     private String disadvantages;
     private String advantages;
@@ -14,8 +14,8 @@ public class Opinion {
     private String reviewSummary;
     private String id;
 
-    public Opinion(String id, String disadvantages, String advantages, String productReview,
-                   String reviewScoreCount, String reviewerName, String reviewTime, String voteYes, String voteNo, String reviewSummary) {
+    public CeneoOpinion(String id, String disadvantages, String advantages, String productReview,
+                        String reviewScoreCount, String reviewerName, String reviewTime, String voteYes, String voteNo, String reviewSummary) {
         this.id = id;
         this.disadvantages = disadvantages;
         this.advantages = advantages;
@@ -62,6 +62,10 @@ public class Opinion {
 
     public String getReviewSummary() {
         return reviewSummary;
+    }
+
+    public String getId() {
+        return id;
     }
 
     public String toString() {

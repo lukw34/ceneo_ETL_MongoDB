@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.*;
 
-@Service("FileService")
+@Service("FileServiceImpl")
 public class FileServiceImpl implements FileService {
 
     @Override

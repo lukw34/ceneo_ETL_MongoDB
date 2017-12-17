@@ -20,12 +20,12 @@ public class Scrapper {
         return this.connection.getDocument().html();
     }
 
-   void getProductInformation(Document doc) {
+   CeneoProduct getProductInformation(Document doc) {
         Parser pageParser = new CeneoParser(doc);
-        pageParser.parse();
+        return (CeneoProduct) pageParser.parse();
     }
 
-    public void getProductInformation(String htmlDocument) {
-        this.getProductInformation(Jsoup.parse(htmlDocument));
+    public CeneoProduct getProductInformation(String htmlDocument) {
+        return this.getProductInformation(Jsoup.parse(htmlDocument));
     }
 }
