@@ -10,8 +10,9 @@ public class FileServiceImpl implements FileService {
     @Override
     public String read(String fileName) {
         StringBuilder stringBuilder = new StringBuilder();
+        String path = "resource/" + fileName;
         try {
-            FileReader reader = new FileReader("resource/" + fileName);
+            FileReader reader = new FileReader(path);
             BufferedReader bufferedReader = new BufferedReader(reader);
 
             String line;
@@ -29,14 +30,17 @@ public class FileServiceImpl implements FileService {
     }
 
     @Override
-    public void write(String fileName, String data) {
+    public long write(String fileName, String data) {
+        String path = "resource/" + fileName;
         try {
-            FileWriter writer = new FileWriter("resource/" + fileName, true);
+            FileWriter writer = new FileWriter(path, true);
             BufferedWriter bufferedWriter = new BufferedWriter(writer);
             bufferedWriter.write(data);
             bufferedWriter.close();
+            File file = new File("resource/" + fileName);
+            return file.length() / 1024;
         } catch (IOException e) {
-            System.out.println(e.toString());
+            return 0;
         }
     }
 

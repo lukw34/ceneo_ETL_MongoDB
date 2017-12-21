@@ -14,7 +14,6 @@ public class Review implements JSONModel {
     private int voteNo;
     private String reviewSummary;
     private String id;
-    private String prouctId;
 
     public Review(String id, String disadvantages, String advantages, String productReview,
                   double reviewScoreCount, String reviewerName, String reviewTime, int voteYes,
@@ -32,13 +31,9 @@ public class Review implements JSONModel {
     }
 
 
-    public void setProuctId(String prouctId) {
-        this.id = this.id + "_" + prouctId;
-        this.prouctId = prouctId;
-    }
-
     @Override
     public String toJSONString() {
+
         return toJSONObject().toString();
     }
 

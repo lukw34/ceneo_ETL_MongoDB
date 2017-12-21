@@ -22,13 +22,13 @@ public class CeneoParser implements Parser<CeneoProduct> {
         for (Element element : listOfOpinions) {
             String disadvantages = element.select("div.cons-cell ul li").text();
             String advantages = element.select("div.pros-cell ul li").text();
-            String productReview = element.select("p.CeneoProduct-review-body").first().text();
+            String productReview = element.select("p.product-review-body").first().text();
             String reviewScoreCount = element.select("span.review-score-count").text();
             String reviewerName = element.select("div.reviewer-name-line").text();
             String reviewTime = element.select("span.review-time time").attr("datetime");
             String voteYes = element.select("button.vote-yes span").text();
             String voteNo = element.select("button.vote-no span").text();
-            String reviewSummary = element.select("div.CeneoProduct-review-summary em").text();
+            String reviewSummary = element.select("div.product-review-summary em").text();
             String id = element.select("div.js_product-review-comments").first().attr("id");
 
             ceneoProduct.addOpinion(new CeneoOpinion(id, disadvantages, advantages, productReview, reviewScoreCount, reviewerName,
@@ -39,7 +39,7 @@ public class CeneoParser implements Parser<CeneoProduct> {
     private void opinionParsing(CeneoProduct ceneoProduct) {
         String disadvantages, advantages, productReview = "", reviewScoreCount = "", reviewerName = "", reviewTime = "",
                 voteYes = "", voteNo = "", reviewSummary = "", id;
-        Elements listOfOpinions = doc.select("ol.CeneoProduct-reviews li.review-box");
+        Elements listOfOpinions = doc.select("ol.product-reviews li.review-box");
         Elements pageNumbers = doc.select("div.pagination ul");
         List<String> links = new ArrayList<>();
         for (Element link : pageNumbers) {
@@ -54,7 +54,7 @@ public class CeneoParser implements Parser<CeneoProduct> {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            listOfOpinions = doc.select("ol.CeneoProduct-reviews li.review-box");
+            listOfOpinions = doc.select("ol.product-reviews li.review-box");
             pageNumbers = doc.select("div.pagination ul");
             parseSingleOpinionPage(listOfOpinions, ceneoProduct);
             for (Element el : pageNumbers) {
@@ -66,12 +66,11 @@ public class CeneoParser implements Parser<CeneoProduct> {
     }
 
     private void titleParsing(CeneoProduct product) {
-        String type = "";
         String mark = "";
         StringBuilder model = new StringBuilder();
         String additionalRemarks = "";
 
-        Elements elem = doc.select("div.wrapper").select("div.CeneoProduct-content");
+        Elements elem = doc.select("div.wrapper").select("div.product-content");
         Elements elem2 = doc.select("div.wrapper").select("nav.breadcrumbs");
 
         for (Element el : elem) {

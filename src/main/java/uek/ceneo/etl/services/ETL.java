@@ -1,7 +1,7 @@
 package uek.ceneo.etl.services;
 
 public interface ETL {
-    public void extract(String id);
-    public void transform(String id);
-    public void load(String id);
+    public String extract(String id);
+    public String transform(String id);
+    public String load(String id);
 }

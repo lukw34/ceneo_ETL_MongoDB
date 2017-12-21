@@ -6,8 +6,8 @@ import com.mongodb.MongoWriteException;
 import com.mongodb.ServerAddress;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
-import com.mongodb.util.JSON;
 import org.bson.Document;
+import org.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
@@ -43,7 +43,6 @@ public class CeneoMongoService implements MongoService {
     public boolean insert(String dbCollection, String object) {
         Document document = Document.parse(object);
         String id = (String) document.get("id");
-        document.append("_id", id);
         MongoCollection<Document> collection = this.ceneoDB.getCollection(dbCollection);
         try {
             collection.insertOne(document);
@@ -63,10 +62,18 @@ public class CeneoMongoService implements MongoService {
 
     @Override
     public ArrayList<Boolean> insertArray(String dbCollection, String array) {
-        Document document =new Document("array", JSON.parse(array));
-        System.out.println(document.values().size());
-        document.values().forEach(System.out::println);
-
-        return null;
+        JSONArray jsonArray = new JSONArray(array);
+        ArrayList<String> documents = new ArrayList<>();
+        ArrayList<Boolean> results = new ArrayList<>();
+        for (int index = 0; index < jsonArray.length(); index++) {
+           documents.add(jsonArray.get(index).toString());
+        }
+        documents.forEach(document -> {
+            Document jsonDocument = Document.parse(document);
+            String id = (String) jsonDocument.get("id");
+            jsonDocument.append("_id", id);
+            results.add(this.insert("reviews", jsonDocument.toJson()));
+        });
+        return results;
     }
 }

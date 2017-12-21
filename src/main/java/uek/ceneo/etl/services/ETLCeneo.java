@@ -28,35 +28,56 @@ public class ETLCeneo implements ETL {
     }
 
     @Override
-    public void extract(String id) {
+    public String extract(String id) {
         Scrapper ceneoScrapper = new Scrapper(id);
-        fileService.write(id + ".html", ceneoScrapper.getDocument());
+        long size = fileService.write(id + ".html", ceneoScrapper.getDocument());
+        StringBuilder log = new StringBuilder();
+        log.append("Pobrano plik html o rozmiarze: ").append(size).append(" kb\n");
+        return log.toString();
     }
 
     @Override
-    public void transform(String id) {
+    public String transform(String id) {
         String htmlDocument = fileService.read(id + ".html");
-//        fileService.clear(id + ".html");
-        Scrapper ceneoScrapper = new Scrapper(id);
-        ReviewList reviewList = new ReviewList();
-        CeneoProduct ceneoProduct = ceneoScrapper.getProductInformation(htmlDocument);
-        Product product = this.ceneoTransformationService.transformProduct(ceneoProduct);
-        List<Review> reviews = ceneoProduct.getCeneoOpinions()
-                .stream()
-                .map(this.ceneoTransformationService::transformOpinion)
-                .collect(Collectors.toList());
-        reviews.forEach(review -> review.setProuctId(product.getId()));
-        reviews.forEach(reviewList::insertReview);
-        fileService.write("product_" + id, product.toJSONString());
-        fileService.write("reviews_" + id, reviewList.toJSONString());
+        fileService.clear(id + ".html");
+        StringBuilder log = new StringBuilder();
+        if (htmlDocument.length() > 0) {
+            Scrapper ceneoScrapper = new Scrapper(id);
+            ReviewList reviewList = new ReviewList();
+            CeneoProduct ceneoProduct = ceneoScrapper.getProductInformation(htmlDocument);
+            List<Review> reviews = ceneoProduct.getCeneoOpinions()
+                    .stream()
+                    .map(this.ceneoTransformationService::transformOpinion)
+                    .collect(Collectors.toList());
+            List<String> reviewsId = reviews.stream().map(review -> (String) review.toJSONObject().get("id")).collect(Collectors.toList());
+            Product product = this.ceneoTransformationService.transformProduct(ceneoProduct, reviewsId);
+            reviews.forEach(reviewList::insertReview);
+            long productSize = fileService.write("product_" + id, product.toJSONString());
+            long reviewsSize = fileService.write("reviews_" + id, reviewList.toJSONString());
+            log.append("Produkt zawiera ").append(reviews.size()).append(" opinie.\n");
+            log.append("Stworzono: product_").append(id).append(".json\n");
+            log.append("Stworzono: reviews_").append(id).append(".json\n");
+        } else {
+            log.append("Brak danych do wykonania procesu Transform !!\n");
+        }
+
+        return log.toString();
     }
 
     @Override
-    public void load(String id) {
+    public String load(String id) {
         String jsonProduct = fileService.read("product_" + id);
         String jsonReviews = fileService.read("reviews_" + id);
+        fileService.clear("product_" + id);
+        fileService.clear("reviews_" + id);
         boolean isInsertProduct = ceneoMongoService.insert("products", jsonProduct);
         ArrayList<Boolean> isOpinionsInserted = ceneoMongoService.insertArray("reviews", jsonReviews);
+        StringBuilder log = new StringBuilder();
+        if(isInsertProduct) {
+            log.append("Wpisano produkt o id ").append(id).append("\n");
+        }
 
+        log.append("Wpisano ").append(isOpinionsInserted.stream().filter(flag -> flag).count()).append(" opinii.\n");
+        return log.toString();
     }
 }

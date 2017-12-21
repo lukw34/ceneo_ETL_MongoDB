@@ -6,6 +6,8 @@ import uek.ceneo.etl.models.Review;
 import uek.ceneo.etl.utils.scrapper.CeneoOpinion;
 import uek.ceneo.etl.utils.scrapper.CeneoProduct;
 
+import java.util.List;
+
 @Service("CeneoTransformationService")
 public class CeneoTransformationService implements TransformationService {
 
@@ -27,13 +29,14 @@ public class CeneoTransformationService implements TransformationService {
     }
 
     @Override
-    public Product transformProduct(CeneoProduct ceneoProductImpl) {
+    public Product transformProduct(CeneoProduct ceneoProductImpl, List<String> reviews) {
         return new Product(
                 ceneoProductImpl.getId(),
                 ceneoProductImpl.getMark(),
                 ceneoProductImpl.getModel(),
                 ceneoProductImpl.getAdditionalRemarks(),
-                ceneoProductImpl.getCategory()
+                ceneoProductImpl.getCategory(),
+                reviews
         );
     }
 }
