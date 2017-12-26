@@ -3,6 +3,8 @@ package uek.ceneo.etl.models;
 
 import org.json.JSONObject;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class Product implements JSONModel<JSONObject> {
@@ -12,14 +14,17 @@ public class Product implements JSONModel<JSONObject> {
     private String category;
     private String id;
     private List<String> reviews;
-
-    public Product(String id, String mark, String model, String additionalRemarks, String category, List<String> reviews) {
+    private Date createdAt;
+    public Product(String id, String mark, String model, String additionalRemarks,
+                   String category, List<String> reviews) {
+        Calendar calendar = Calendar.getInstance();
         this.id = id;
         this.mark = mark;
         this.model = model;
         this.additionalRemarks = additionalRemarks;
         this.category = category;
         this.reviews = reviews;
+        this.createdAt = calendar.getTime();
     }
 
     public String getId() {
@@ -39,6 +44,7 @@ public class Product implements JSONModel<JSONObject> {
                 .put("mark", mark)
                 .put("additionalRemarks", additionalRemarks)
                 .put("category", category)
-                .put("reviews", reviews.toArray());
+                .put("reviews", reviews.toArray())
+                .put("createdAt", this.createdAt);
     }
 }

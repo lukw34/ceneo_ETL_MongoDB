@@ -12,8 +12,8 @@ import java.util.List;
 public class CeneoTransformationService implements TransformationService {
 
     @Override
-    public Review transformOpinion(CeneoOpinion ceneoOpinion) {
-        String id = ceneoOpinion.getId().split("-")[3];
+    public Review transformOpinion(CeneoOpinion ceneoOpinion, String productId) {
+        String id = ceneoOpinion.getId().split("-")[3] + "_" + productId;
         return new Review(
                 id,
                 ceneoOpinion.getDisadvantages(),
@@ -24,7 +24,8 @@ public class CeneoTransformationService implements TransformationService {
                 ceneoOpinion.getReviewTime(),
                 ceneoOpinion.getVoteYes(),
                 ceneoOpinion.getVoteNo(),
-                ceneoOpinion.getReviewSummary()
+                ceneoOpinion.getReviewSummary(),
+                productId
         );
     }
 

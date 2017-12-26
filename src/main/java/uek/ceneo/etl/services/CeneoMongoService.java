@@ -1,9 +1,6 @@
 package uek.ceneo.etl.services;
 
-import com.mongodb.MongoClient;
-import com.mongodb.MongoCredential;
-import com.mongodb.MongoWriteException;
-import com.mongodb.ServerAddress;
+import com.mongodb.*;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
@@ -13,6 +10,11 @@ import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.TreeSet;
+
+import static java.util.stream.Collectors.collectingAndThen;
+import static java.util.stream.Collectors.toCollection;
 
 @Service("CeneoMongoService")
 public class CeneoMongoService implements MongoService {
@@ -39,6 +41,12 @@ public class CeneoMongoService implements MongoService {
         this.ceneoDB = mongoClient.getDatabase(database);
     }
 
+    private ArrayList<Document> makeUniqueList(ArrayList<Document> list) {
+        return list.stream()
+                .collect(collectingAndThen(toCollection(() -> new TreeSet<>(Comparator.comparing(document -> document.get("id", String.class)))),
+                        ArrayList::new));
+    }
+
     @Override
     public boolean insert(String dbCollection, String object) {
         Document document = Document.parse(object);
@@ -59,6 +67,16 @@ public class CeneoMongoService implements MongoService {
         }
     }
 
+    @Override
+    public ArrayList<Document> getUniqueList(String dbCollectionName) {
+        return this.getUniqueList(dbCollectionName, new Document());
+    }
+
+    @Override
+    public ArrayList<Document> getUniqueList(String collection, Document documentQuery) {
+       return this.makeUniqueList(this.find(collection, documentQuery));
+    }
+
 
     @Override
     public ArrayList<Boolean> insertArray(String dbCollection, String array) {
@@ -66,7 +84,7 @@ public class CeneoMongoService implements MongoService {
         ArrayList<String> documents = new ArrayList<>();
         ArrayList<Boolean> results = new ArrayList<>();
         for (int index = 0; index < jsonArray.length(); index++) {
-           documents.add(jsonArray.get(index).toString());
+            documents.add(jsonArray.get(index).toString());
         }
         documents.forEach(document -> {
             Document jsonDocument = Document.parse(document);
@@ -75,5 +93,40 @@ public class CeneoMongoService implements MongoService {
             results.add(this.insert("reviews", jsonDocument.toJson()));
         });
         return results;
+    }
+
+    @Override
+    public ArrayList<Document> find(String dbCollectionName, Document documentQuery) {
+        MongoCollection<Document> collection = this.ceneoDB.getCollection(dbCollectionName);
+        ArrayList<Document> queryResult = new ArrayList<>();
+        collection.find(documentQuery).forEach((Block<? super Document>) queryResult::add);
+        return queryResult;
+    }
+
+    @Override
+    public ArrayList<Document> find(String collection) {
+        return this.find(collection, new Document());
+    }
+
+    @Override
+    public long remove(String dbCollectionName, Document documentQuery) {
+        MongoCollection<Document> collection = this.ceneoDB.getCollection(dbCollectionName);
+        return collection.deleteMany(documentQuery).getDeletedCount();
+    }
+
+    @Override
+    public boolean dropCollection(String dbCollectionName) {
+        try {
+            MongoCollection<Document> collection = this.ceneoDB.getCollection(dbCollectionName);
+            collection.drop();
+            return true;
+        } catch (Exception e){
+            StringBuilder log = new StringBuilder();
+            log.append("[Collection: ")
+                    .append(dbCollectionName)
+                    .append("] Kolekcja nie istnieje.");
+            System.out.println(log.toString());
+            return false;
+        }
     }
 }

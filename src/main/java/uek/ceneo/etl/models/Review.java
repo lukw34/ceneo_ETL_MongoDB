@@ -2,6 +2,8 @@ package uek.ceneo.etl.models;
 
 import org.json.JSONObject;
 
+import java.util.Calendar;
+
 public class Review implements JSONModel {
 
     private String disadvantages;
@@ -12,12 +14,13 @@ public class Review implements JSONModel {
     private String reviewTime;
     private int voteYes;
     private int voteNo;
+    private String productId;
     private String reviewSummary;
     private String id;
 
     public Review(String id, String disadvantages, String advantages, String productReview,
                   double reviewScoreCount, String reviewerName, String reviewTime, int voteYes,
-                  int voteNo, String reviewSummary) {
+                  int voteNo, String reviewSummary, String productId) {
         this.id = id;
         this.disadvantages = disadvantages;
         this.advantages = advantages;
@@ -28,12 +31,12 @@ public class Review implements JSONModel {
         this.voteYes = voteYes;
         this.voteNo = voteNo;
         this.reviewSummary = reviewSummary;
+        this.productId = productId;
     }
 
 
     @Override
     public String toJSONString() {
-
         return toJSONObject().toString();
     }
 
@@ -49,7 +52,8 @@ public class Review implements JSONModel {
                 .put("reviewTime", reviewTime)
                 .put("voteYes", voteYes)
                 .put("voteNo", voteNo)
-                .put("reviewSummary", reviewSummary);
+                .put("reviewSummary", reviewSummary)
+                .put("productId", productId);
     }
 
 }

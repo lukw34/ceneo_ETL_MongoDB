@@ -47,13 +47,13 @@ public class ETLCeneo implements ETL {
             CeneoProduct ceneoProduct = ceneoScrapper.getProductInformation(htmlDocument);
             List<Review> reviews = ceneoProduct.getCeneoOpinions()
                     .stream()
-                    .map(this.ceneoTransformationService::transformOpinion)
+                    .map(review -> this.ceneoTransformationService.transformOpinion(review, ceneoProduct.getId()))
                     .collect(Collectors.toList());
             List<String> reviewsId = reviews.stream().map(review -> (String) review.toJSONObject().get("id")).collect(Collectors.toList());
             Product product = this.ceneoTransformationService.transformProduct(ceneoProduct, reviewsId);
             reviews.forEach(reviewList::insertReview);
-            long productSize = fileService.write("product_" + id, product.toJSONString());
-            long reviewsSize = fileService.write("reviews_" + id, reviewList.toJSONString());
+            fileService.write("product_" + id, product.toJSONString());
+            fileService.write("reviews_" + id, reviewList.toJSONString());
             log.append("Produkt zawiera ").append(reviews.size()).append(" opinie.\n");
             log.append("Stworzono: product_").append(id).append(".json\n");
             log.append("Stworzono: reviews_").append(id).append(".json\n");
@@ -73,7 +73,7 @@ public class ETLCeneo implements ETL {
         boolean isInsertProduct = ceneoMongoService.insert("products", jsonProduct);
         ArrayList<Boolean> isOpinionsInserted = ceneoMongoService.insertArray("reviews", jsonReviews);
         StringBuilder log = new StringBuilder();
-        if(isInsertProduct) {
+        if (isInsertProduct) {
             log.append("Wpisano produkt o id ").append(id).append("\n");
         }
 

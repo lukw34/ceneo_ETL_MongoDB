@@ -8,7 +8,7 @@ import uek.ceneo.etl.utils.scrapper.CeneoProduct;
 import java.util.List;
 
 public interface TransformationService {
-    Review transformOpinion(CeneoOpinion ceneoOpinion);
+    Review transformOpinion(CeneoOpinion ceneoOpinion, String id);
 
     Product transformProduct(CeneoProduct ceneoProductImpl, List<String> reviews);
 }
