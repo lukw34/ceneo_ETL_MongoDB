@@ -2,8 +2,6 @@ package uek.ceneo.etl.models;
 
 import org.json.JSONObject;
 
-import java.util.Calendar;
-
 public class Review implements JSONModel {
 
     private String disadvantages;
@@ -28,9 +26,9 @@ public class Review implements JSONModel {
         this.reviewScoreCount = reviewScoreCount;
         this.reviewerName = reviewerName;
         this.reviewTime = reviewTime;
+        this.reviewSummary = reviewSummary;
         this.voteYes = voteYes;
         this.voteNo = voteNo;
-        this.reviewSummary = reviewSummary;
         this.productId = productId;
     }
 

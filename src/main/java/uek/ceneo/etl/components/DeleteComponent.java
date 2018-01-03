@@ -7,8 +7,6 @@ import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
 import uek.ceneo.etl.services.MongoService;
 
-import java.util.stream.Collectors;
-
 @ShellComponent
 public class DeleteComponent {
     MongoService mongoService;
@@ -34,9 +32,9 @@ public class DeleteComponent {
             log.append(this.mongoService.dropCollection("reviews") ? "Usunieto kolekcje [reviews]" : "");
             return log.toString();
         }
-        long counrRemovedReviews = this.mongoService
+        long counterRemovedReviews = this.mongoService
                 .remove("reviews", new Document("productId", id));
-        log.append("Usunieto ").append(counrRemovedReviews).append(" opinii.");
+        log.append("Usunieto ").append(counterRemovedReviews).append(" opinii.");
         return log.toString();
     }
 }

@@ -1,6 +1,7 @@
 package uek.ceneo.etl.services;
 
 import org.bson.Document;
+import org.bson.conversions.Bson;
 
 import java.util.ArrayList;
 
@@ -14,6 +15,8 @@ public interface MongoService {
     ArrayList<Boolean> insertArray(String collection, String dbArray);
 
     ArrayList<Document> find(String collection, Document documentQuery);
+
+    ArrayList<Document> find(String collection, Document documentQuery, Bson sorts);
 
     ArrayList<Document> find(String collection);
 

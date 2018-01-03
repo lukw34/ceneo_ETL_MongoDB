@@ -4,6 +4,7 @@ import com.mongodb.*;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
+import org.bson.conversions.Bson;
 import org.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -100,6 +101,14 @@ public class CeneoMongoService implements MongoService {
         MongoCollection<Document> collection = this.ceneoDB.getCollection(dbCollectionName);
         ArrayList<Document> queryResult = new ArrayList<>();
         collection.find(documentQuery).forEach((Block<? super Document>) queryResult::add);
+        return queryResult;
+    }
+
+    @Override
+    public ArrayList<Document> find(String dbCollectionName, Document documentQuery, Bson sorts) {
+        MongoCollection<Document> collection = this.ceneoDB.getCollection(dbCollectionName);
+        ArrayList<Document> queryResult = new ArrayList<>();
+        collection.find(documentQuery).sort(sorts).forEach((Block<? super Document>) queryResult::add);
         return queryResult;
     }
 

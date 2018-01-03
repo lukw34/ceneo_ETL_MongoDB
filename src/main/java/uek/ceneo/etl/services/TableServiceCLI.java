@@ -1,31 +1,38 @@
 package uek.ceneo.etl.services;
 
 import org.bson.Document;
-import org.springframework.shell.table.*;
+import org.springframework.shell.table.ArrayTableModel;
+import org.springframework.shell.table.BorderStyle;
+import org.springframework.shell.table.TableBuilder;
+import org.springframework.shell.table.TableModel;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service("TableServiceCLI")
 public class TableServiceCLI implements TableService {
 
     @Override
-    public Table getTable(ArrayList<Document> doc, ArrayList<String> properties) {
+    public String getTable(ArrayList<Document> doc, ArrayList<String> properties) {
         Function<Document, String[]> generateRow = document -> {
             ArrayList<String> row = new ArrayList<>();
-            properties.forEach(property -> row.add(document.get(property, String.class)));
+            properties.forEach(property -> row.add(document.get(property).toString()));
             return row.toArray(new String[row.size()]);
         };
         String[][] tableData = doc.stream()
                 .map(generateRow)
                 .collect(Collectors.toList())
                 .toArray(new String[doc.size()][]);
+        String[][] headers = new String[1][properties.size()];
+        headers[0] = properties.toArray(new String[properties.size()]);
 
-        TableModel model = new ArrayTableModel(tableData);
+        TableModel model = new ArrayTableModel(Stream.of(headers, tableData).flatMap(Stream::of)
+                .toArray(String[][]::new));
         TableBuilder tableBuilder = new TableBuilder(model);
         tableBuilder.addFullBorder(BorderStyle.fancy_heavy);
-        return tableBuilder.build();
+        return tableBuilder.build().render(120);
     }
 }
