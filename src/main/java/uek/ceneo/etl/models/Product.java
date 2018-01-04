@@ -7,6 +7,19 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * Klasa reprezentujaca poszczegolne produkty. Zawiera takie dane jak:
+ * <ul>
+ * <li>Identyfikator [id]</li>
+ * <li>Rodzaj urzadzenia [category]</li>
+ * <li>Marka [mark] </li>
+ * <li>Model [model]</li>
+ * <li>Lista identyfikatorow opinii [reviews]</li>
+ * <li>Data utworzenia [createdAt]</li>
+ * </ul>
+ *
+ * @see uek.ceneo.etl.models.JSONModel
+ */
 public class Product implements JSONModel<JSONObject> {
     private String mark;
     private String model;
@@ -15,6 +28,17 @@ public class Product implements JSONModel<JSONObject> {
     private String id;
     private List<String> reviews;
     private Date createdAt;
+
+    /**
+     * Konstruktor klasy
+     *
+     * @param id                Identyfikator produktu
+     * @param mark              Marka produktu
+     * @param model             Model
+     * @param additionalRemarks Dodatkowe uwagi
+     * @param category          Rodzaj produktu
+     * @param reviews           Lista opinii
+     */
     public Product(String id, String mark, String model, String additionalRemarks,
                    String category, List<String> reviews) {
         Calendar calendar = Calendar.getInstance();
@@ -27,15 +51,31 @@ public class Product implements JSONModel<JSONObject> {
         this.createdAt = calendar.getTime();
     }
 
+    /**
+     * Pobiera identyfikator produktu
+     *
+     * @return Identyfikator produktu
+     */
     public String getId() {
         return id;
     }
 
+    /**
+     * Implementacja metody zwracajacej produkt w postaci ciagu znakow formatu JSON
+     *
+     * @return Reprezentacja produktu jako ciagu znakow
+     */
     @Override
     public String toJSONString() {
-       return toJSONObject().toString();
+        return toJSONObject().toString();
     }
 
+
+    /**
+     * Implementacja metody tworzacej obiekt o formacie JSON
+     *
+     * @return Reprezentacja produktu jako obieku JSON-owego
+     */
     @Override
     public JSONObject toJSONObject() {
         return new JSONObject()
