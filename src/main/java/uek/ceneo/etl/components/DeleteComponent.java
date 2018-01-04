@@ -7,19 +7,37 @@ import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
 import uek.ceneo.etl.services.MongoService;
 
+/**
+ * Klasa zawiera komendy zwiazane z czyszczeniem danych w bazie
+ *
+ * @see ShellComponent
+ */
 @ShellComponent
 public class DeleteComponent {
-    MongoService mongoService;
+    private final MongoService mongoService;
 
+    /**
+     * Konstruktor wstrzykuj serwisy niezbedne do dzialania komponentu
+     *
+     * @param mongoService Serwis do obslugi bazy danych
+     */
     @Autowired
     public DeleteComponent(MongoService mongoService) {
         this.mongoService = mongoService;
     }
 
+    /**
+     * Metoda odpowiedzialna za obsluge polecenia usuwajacego opinie z bazy
+     *
+     * @param id  Identyfikator produktu, ktorego opinie maja zostac usuniete
+     * @param all Pobiera wszystkie opinie
+     * @return Komunikat wyswietlany w konsoli
+     * @see ShellMethod
+     */
     @ShellMethod(value = "Usuwa opinie z bazy danych.", key = {"d", "delete", "del", "D"})
-    public String deleteOpinionst(
+    public String deleteOpinions(
             @ShellOption(
-                    help = "Identyfikator produktu, którego opinie mają zostać usuniete",
+                    help = "Identyfikator produktu, ktorego opinie mają zostac usuniete",
                     defaultValue = ShellOption.NULL
             ) String id,
             @ShellOption(

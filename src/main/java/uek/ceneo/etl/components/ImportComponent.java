@@ -11,27 +11,48 @@ import uek.ceneo.etl.services.MongoService;
 
 import java.util.ArrayList;
 
+/**
+ * Klasa zawiera komendy zwiazane z importem danych z bazy do plikow
+ *
+ * @see ShellComponent
+ */
 @ShellComponent
-public class CSVComponent {
-    MongoService mongoService;
-    CSVService csvService;
-    FileService fileService;
+public class ImportComponent {
+    private final MongoService mongoService;
+    private final CSVService csvService;
+    private final FileService fileService;
 
+    /**
+     * Konstruktor wstrzykuj serwisy niezbedne do dzialania komponentu
+     *
+     * @param mongoService Serwis do obslugi bazy danych
+     * @param csvService   Serwis do obslugi plikow csv
+     * @param fileService  Serwis do obslugi operacji I/O dla plikow
+     */
     @Autowired
-    public CSVComponent(MongoService mongoService, CSVService csvService, FileService fileService) {
+    public ImportComponent(MongoService mongoService, CSVService csvService, FileService fileService) {
         this.csvService = csvService;
         this.mongoService = mongoService;
         this.fileService = fileService;
     }
 
+    /**
+     * Metoda odpowiedzialna za obsluge polecenia importujace opinie z bazy do plikow o wskazanym formacie
+     *
+     * @param id         Identyfikator produktu, ktorego opinie maja zostać zaimportowane
+     * @param dataFormat Typ pliku do ktorego maja zostac zaimportowane pliki (csv lub txt)
+     * @param all        Pobiera wszystkie opinie
+     * @return komunikat wyswietlany w konsoli
+     * @see ShellMethod
+     */
     @ShellMethod(value = "Importuje opinie do pliku", key = {"import-review", "ir",})
     public String getReviewCSV(
             @ShellOption(
-                    help = "Identyfikator produktu, którego opinie mają zostać zaimportowane",
+                    help = "Identyfikator produktu, ktorego opinie maja zostac zaimportowane",
                     defaultValue = ShellOption.NULL
             ) String id,
             @ShellOption(
-                    help = "Typ pliku do którego maja zostac zaimportowane pliki (csv lub txt)",
+                    help = "Typ pliku do ktorego maja zostac zaimportowane pliki (csv lub txt)",
                     defaultValue = "csv"
             ) String dataFormat,
             @ShellOption(
@@ -61,7 +82,7 @@ public class CSVComponent {
                 data = items.toString();
                 break;
             default:
-                return log.append("Dane nie mogą zostawić przetworzone do pliku ").append(dataFormat).append(".").toString();
+                return log.append("Dane nie mogą zostawic przetworzone do pliku ").append(dataFormat).append(".").toString();
         }
 
         long size = fileService.write(fileName + "." + dataFormat, data);

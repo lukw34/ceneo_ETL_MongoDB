@@ -27,3 +27,4 @@ nbdist/
 .nb-gradle/
 /gradlew
 spring-shell.log
+/docs/

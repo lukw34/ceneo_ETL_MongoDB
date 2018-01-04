@@ -12,18 +12,36 @@ import uek.ceneo.etl.services.TableService;
 
 import java.util.ArrayList;
 
+
+/**
+ * Klasa zawiera komendy zwiazane z wyswietlaniem danych w konsoli
+ *
+ * @see ShellComponent
+ */
 @ShellComponent
 public class ListComponent {
 
     private final TableService tableService;
     private final MongoService mongoService;
 
+    /**
+     * Konstruktor wstrzykuj serwisy niezbedne do dzialania komponentu
+     *
+     * @param tableService Serwis zwiazany z renerowaniem tablic zawierajacych dane
+     * @param mongoService Serwis do obslugi bazy danych
+     */
     @Autowired
     public ListComponent(TableService tableService, MongoService mongoService) {
         this.mongoService = mongoService;
         this.tableService = tableService;
     }
 
+    /**
+     * Metoda odpowiedzialna za wyswietlanie listy produktow
+     *
+     * @return komunikat wyswietlany w konsoli
+     * @see ShellMethod
+     */
     @ShellMethod(value = "Pobiera liste produktów zapisanych do bazy.", key = {"LP", "list-products", "lp"})
     public String listProduct() {
         ArrayList<String> properties = new ArrayList<>();
@@ -35,9 +53,15 @@ public class ListComponent {
     }
 
 
+    /**
+     * Metoda odpowiedzialna za wyswietlanie opinii dla konkretnego produktu
+     *
+     * @param id Identyfikator produktu, ktorego opinie maja zostac wyswietlone
+     * @see ShellMethod
+     */
     @ShellMethod(value = "Pobiera liste opinii zapisanych do bazy dla produktu o podanym identyfikatorze.", key = {"LR", "list-reviews", "lr"})
     public String listReviews(
-            @ShellOption(help = "Identyfikator produktu dla ktoreg maja zostać pobrane opinie") String id
+            @ShellOption(help = "Identyfikator produktu dla ktoreg maja zostac pobrane opinie") String id
     ) {
         StringBuilder log = new StringBuilder();
         ArrayList<Document> products = this.mongoService.find("products", new Document("id", id), Sorts.ascending("createdAt"));
