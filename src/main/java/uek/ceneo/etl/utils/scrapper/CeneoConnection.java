@@ -56,7 +56,7 @@ public class CeneoConnection {
         try {
             doc = Jsoup.connect(fullUrl).get();
         } catch (IOException e) {
-            e.printStackTrace();
+
         }
     }
 
