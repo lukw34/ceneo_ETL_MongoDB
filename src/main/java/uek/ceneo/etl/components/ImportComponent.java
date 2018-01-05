@@ -14,12 +14,21 @@ import java.util.ArrayList;
 /**
  * Klasa zawiera komendy zwiazane z importem danych z bazy do plikow
  *
- * @see ShellComponent
+ * @see org.springframework.shell.standard.ShellComponent
  */
 @ShellComponent
 public class ImportComponent {
+    /**
+     * Serwis umozliwiajacy obsluge bazy mongo
+     */
     private final MongoService mongoService;
+    /**
+     * Serwis umozliwiajacy generowanie danych w formacie csv
+     */
     private final CSVService csvService;
+    /**
+     * Serwis do obslugi  operacji I/O na plikach
+     */
     private final FileService fileService;
 
     /**
@@ -43,7 +52,7 @@ public class ImportComponent {
      * @param dataFormat Typ pliku do ktorego maja zostac zaimportowane pliki (csv lub txt)
      * @param all        Pobiera wszystkie opinie
      * @return komunikat wyswietlany w konsoli
-     * @see ShellMethod
+     * @see org.springframework.shell.standard.ShellMethod
      */
     @ShellMethod(value = "Importuje opinie do pliku", key = {"import-review", "ir",})
     public String getReviewCSV(

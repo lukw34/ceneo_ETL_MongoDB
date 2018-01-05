@@ -10,10 +10,13 @@ import uek.ceneo.etl.services.ETL;
 /**
  * Klasa zawiera komendy zwiazane z obsluga procesu ETL
  *
- * @see ShellComponent
+ * @see org.springframework.shell.standard.ShellComponent
  */
 @ShellComponent
 public class ETLComponent {
+    /**
+     * Serwis do obslugi procesow ETL
+     */
     private final ETL ETLCeneoService;
 
     /**
@@ -32,7 +35,7 @@ public class ETLComponent {
      *
      * @param id Identyfikator produktu
      * @return Komunikat wyswietlany w konsoli
-     * @see ShellMethod
+     * @see org.springframework.shell.standard.ShellMethod
      */
     @ShellMethod(value = "Wykonuje operacje EXTRACT dla prouktu o podanym id", key = {"E", "extract", "e"})
     public String  extract(
@@ -48,7 +51,7 @@ public class ETLComponent {
      *
      * @param id Identyfikator produktu
      * @return Komunikat wyswietlany w konsoli
-     * @see ShellMethod
+     * @see org.springframework.shell.standard.ShellMethod
      */
     @ShellMethod(value = "Wykonuje operacje TRANSFORM dla prouktu o podanym id", key = {"T", "transform", "t"})
     public String transform(
@@ -64,7 +67,7 @@ public class ETLComponent {
      *
      * @param id Identyfikator produktu
      * @return Komunikat wyswietlany w konsoli
-     * @see ShellMethod
+     * @see org.springframework.shell.standard.ShellMethod
      */
     @ShellMethod(value = "Wykonuje operacje LOAD dla prouktu o podanym id", key = {"L", "load", "l"})
     public String load(
@@ -78,7 +81,7 @@ public class ETLComponent {
      *
      * @param id Identyfikator produktu
      * @return Komunikat wyswietlany w konsoli
-     * @see ShellMethod
+     * @see org.springframework.shell.standard.ShellMethod
      */
     @ShellMethod(value = "Wykonuje operacje ETL dla prouktu o podanym id", key = {"ETL", "etl", })
     public String ETL(

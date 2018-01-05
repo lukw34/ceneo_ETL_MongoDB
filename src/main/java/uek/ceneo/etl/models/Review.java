@@ -18,6 +18,7 @@ import org.json.JSONObject;
  * <li>Identyfikator opinii [id]</li>
  * </ul>
  *
+ * @see uek.ceneo.etl.models.Review
  * @see uek.ceneo.etl.models.JSONModel
  */
 public class Review implements JSONModel {

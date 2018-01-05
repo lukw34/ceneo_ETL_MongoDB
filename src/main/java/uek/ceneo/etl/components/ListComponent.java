@@ -16,12 +16,17 @@ import java.util.ArrayList;
 /**
  * Klasa zawiera komendy zwiazane z wyswietlaniem danych w konsoli
  *
- * @see ShellComponent
+ * @see org.springframework.shell.standard.ShellComponent
  */
 @ShellComponent
 public class ListComponent {
-
+    /**
+     * Serwis genrujacy tablice do prezentacji danych
+     */
     private final TableService tableService;
+    /**
+     * Serwis umozliwiajacy obsluge bazy mongo
+     */
     private final MongoService mongoService;
 
     /**
@@ -40,7 +45,7 @@ public class ListComponent {
      * Metoda odpowiedzialna za wyswietlanie listy produktow
      *
      * @return komunikat wyswietlany w konsoli
-     * @see ShellMethod
+     * @see org.springframework.shell.standard.ShellMethod
      */
     @ShellMethod(value = "Pobiera liste produktów zapisanych do bazy.", key = {"LP", "list-products", "lp"})
     public String listProduct() {
@@ -57,7 +62,7 @@ public class ListComponent {
      * Metoda odpowiedzialna za wyswietlanie opinii dla konkretnego produktu
      *
      * @param id Identyfikator produktu, ktorego opinie maja zostac wyswietlone
-     * @see ShellMethod
+     * @see org.springframework.shell.standard.ShellMethod
      */
     @ShellMethod(value = "Pobiera liste opinii zapisanych do bazy dla produktu o podanym identyfikatorze.", key = {"LR", "list-reviews", "lr"})
     public String listReviews(

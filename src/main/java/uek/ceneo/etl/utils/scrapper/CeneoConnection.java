@@ -1,10 +1,14 @@
 package uek.ceneo.etl.utils.scrapper;
 
-import java.io.IOException;
-
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
+import java.io.IOException;
+
+/**
+ * Klasa odpowiedzialna za ustanowienie polaczanie ze strona internetową.
+ * Zastosowano tutaj wzorzec projektowy o nazwie singleton.
+ */
 public class CeneoConnection {
 
     private final String URL = "https://www.ceneo.pl/";
@@ -12,7 +16,12 @@ public class CeneoConnection {
     private Document doc = null;
     private static CeneoConnection instance;
 
-    public static CeneoConnection getInstance() {
+    /**
+     * Pobiera jedyna instancje klasy
+     *
+     * @return Zwraca instancje klasy
+     */
+    static CeneoConnection getInstance() {
         if (instance == null) {
             instance = new CeneoConnection();
         }

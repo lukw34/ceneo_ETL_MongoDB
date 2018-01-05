@@ -8,8 +8,20 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Klasa odpowiedzialna za generowanie plikow w formacie csv
+ *
+ * @see org.springframework.stereotype.Service;
+ */
 @Service("CSVService")
 public class GenericCSVService implements CSVService {
+
+    /**
+     * Tworzy dokument csv w oparciu o dane pobrane z bazy ceneo
+     *
+     * @param documents Lista dokumentow pobranych z bazy ceneo
+     * @return Dane w formacie csv
+     */
     @Override
     public String build(ArrayList<Document> documents) {
         List<String> rows = documents.stream().map(document -> {

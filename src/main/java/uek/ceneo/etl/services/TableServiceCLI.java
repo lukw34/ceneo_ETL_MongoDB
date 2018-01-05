@@ -12,9 +12,22 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+/**
+ * Klasa odpowiedzialna za obsluge  tablic prezentujacych dane uzytkownikowi
+ *
+ * @see org.springframework.stereotype.Service;
+ */
 @Service("TableServiceCLI")
 public class TableServiceCLI implements TableService {
 
+    /**
+     * Zwraca gotowa do wyswietlenia tablice. Generowana jest ona na podstawie przeslanych atrybutow,
+     * ktre maja zostac wyswietlone
+     *
+     * @param doc        Dane do wyswietlenia
+     * @param properties Atrybuty, ktore maja zostac pokazane uzytkownikowi
+     * @return Tablica jako ciag znakow
+     */
     @Override
     public String getTable(ArrayList<Document> doc, ArrayList<String> properties) {
         Function<Document, String[]> generateRow = document -> {

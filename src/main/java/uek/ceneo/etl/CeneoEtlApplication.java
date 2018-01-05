@@ -1,9 +1,11 @@
 package uek.ceneo.etl;
 
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+/**
+ * Główna klasa odpowiedzialna za uruchomienie aplikacji. Wiecej szczegolow odnosnie aplikacji w README.md
+ */
 @SpringBootApplication
 public class CeneoEtlApplication {
 

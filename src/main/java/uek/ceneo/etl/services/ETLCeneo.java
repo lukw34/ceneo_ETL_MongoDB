@@ -12,6 +12,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Klasa odpowiedzialna za przeprowadzenie procesu ETL dla serwisu ceneo
+ *
+ * @see org.springframework.stereotype.Service;
+ */
 @Service("ETLCeneoService")
 public class ETLCeneo implements ETL {
 
@@ -20,6 +25,14 @@ public class ETLCeneo implements ETL {
     private final MongoService ceneoMongoService;
 
 
+    /**
+     * Konstuktor serwisu.
+     * Inicjalizuje serwisy potrzebne do ustanowienia polaczenia z baza danych
+     *
+     * @param fileService                Obsluga plikow
+     * @param ceneoTransformationService Przeksztalcanie danych do zdefiniowanych modeli
+     * @param ceneoMongoService          Obsluga bazy danych ceneo
+     */
     @Autowired
     public ETLCeneo(FileService fileService, TransformationService ceneoTransformationService, MongoService ceneoMongoService) {
         this.ceneoMongoService = ceneoMongoService;
@@ -27,6 +40,13 @@ public class ETLCeneo implements ETL {
         this.fileService = fileService;
     }
 
+
+    /**
+     * Pobiera plik html z danymi koniecznymi do przeprowadzenia kolejnych etapow procesu ETL
+     *
+     * @param id Identyfiaktor produktu
+     * @return Informacja o rozmiarze pobranego pliku
+     */
     @Override
     public String extract(String id) {
         Scrapper ceneoScrapper = new Scrapper(id);
@@ -36,6 +56,12 @@ public class ETLCeneo implements ETL {
         return log.toString();
     }
 
+    /**
+     * Jesli dane zostaly wczesniej pobrane metoda transform przeksztalca je do modeli zdefiniowanych w bazie danych
+     *
+     * @param id Identyfiaktor produktu
+     * @return Dane statystyczne zwiazane z wykonaniem tego procesu
+     */
     @Override
     public String transform(String id) {
         String htmlDocument = fileService.read(id + ".html");
@@ -64,6 +90,12 @@ public class ETLCeneo implements ETL {
         return log.toString();
     }
 
+    /**
+     * Wpisanie danych do bazy danych
+     *
+     * @param id Identyfiaktor produktu
+     * @return Informacja o ilosci wpisanych obiektow
+     */
     @Override
     public String load(String id) {
         String jsonProduct = fileService.read("product_" + id);

@@ -10,13 +10,22 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Parser pliku html zawierajacego dane z serwisu ceneo
+ */
 public class CeneoParser implements Parser<CeneoProduct> {
     private Document doc;
 
 
-    public CeneoParser(Document doc) {
+    /**
+     * Konstruktor klasy
+     *
+     * @param doc Dokument do analizy
+     */
+    CeneoParser(Document doc) {
         this.doc = doc;
     }
+
 
     private void parseSingleOpinionPage(Elements listOfOpinions, CeneoProduct ceneoProduct) {
         for (Element element : listOfOpinions) {
@@ -103,6 +112,12 @@ public class CeneoParser implements Parser<CeneoProduct> {
         return category;
     }
 
+    /**
+     * <p>Główna metoda odpowiedzialna za analize danych z serwisu ceneo.</p>
+     * <p> Na podstawie selektorów pobierane sa dane o produkcie, a nastepnie o wszystkich opiniach przypisanych do niego.</p>
+     *
+     * @return Produkt z jego opiniami
+     */
     @Override
     public CeneoProduct parse() {
         String category = getCategory();
