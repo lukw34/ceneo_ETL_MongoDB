@@ -6,13 +6,29 @@ import java.util.ArrayList;
  * Klasa reprezentujaca produkt zawarty w serwisie Ceneo
  */
 public class CeneoProductImpl implements CeneoProduct {
-
+    /**
+     * Marka produktu
+     */
     private String mark;
+    /**
+     * Model produktu
+     */
     private String model;
+    /**
+     * Dodatkowe uwagi
+     */
     private String additionalRemarks;
+    /**
+     * Kategoria produktu
+     */
     private String category;
+    /**
+     * Identyfikator produktu
+     */
     private String id;
-
+    /**
+     * Lista opinii opisujacych produkt
+     */
     private ArrayList<CeneoOpinion> ceneoOpinions;
 
     /**

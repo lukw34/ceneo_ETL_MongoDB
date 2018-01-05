@@ -19,10 +19,19 @@ import java.util.stream.Collectors;
  */
 @Service("ETLCeneoService")
 public class ETLCeneo implements ETL {
-
-    private final FileService fileService;
-    private final TransformationService ceneoTransformationService;
+    /**
+     * Serwis umozliwiajacy obsluge bazy mongo
+     */
     private final MongoService ceneoMongoService;
+
+    /**
+     * Serwis do obslugi  operacji I/O na plikach
+     */
+    private final FileService fileService;
+    /**
+     * Serwis przeksztalcajacy poszczegolne informacje do modeli bazy danych
+     */
+    private final TransformationService ceneoTransformationService;
 
 
     /**

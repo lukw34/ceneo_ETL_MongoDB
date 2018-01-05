@@ -6,15 +6,45 @@ package uek.ceneo.etl.utils.scrapper;
  */
 public class CeneoOpinion {
 
+    /**
+     * Wady produktu
+     */
     private String disadvantages;
+    /**
+     * Zalety produktu
+     */
     private String advantages;
+    /**
+     * Podsumowanie opinii
+     */
     private String productReview;
+    /**
+     * Liczba gwiazdek
+     */
     private double reviewScoreCount;
+    /**
+     * Autor opinii
+     */
     private String reviewerName;
+    /**
+     * Data wystawienia opinii
+     */
     private String reviewTime;
+    /**
+     * Ile osob uznalo opinie za przydatna
+     */
     private int voteYes;
+    /**
+     * Ile osob uznalo opinie za nieprzydatna
+     */
     private int voteNo;
+    /**
+     * POLECAM/ NIE POLECAM
+     */
     private String reviewSummary;
+    /**
+     * Identyfikator opinii
+     */
     private String id;
 
     /**

@@ -21,12 +21,33 @@ import java.util.List;
  * @see uek.ceneo.etl.models.JSONModel
  */
 public class Product implements JSONModel<JSONObject> {
+    /**
+     * Marka produktu
+     */
     private String mark;
+    /**
+     * Model produktu
+     */
     private String model;
+    /**
+     * Dodatkowe uwagi
+     */
     private String additionalRemarks;
+    /**
+     * Kategoria produktu
+     */
     private String category;
+    /**
+     * Identyfikator produktu
+     */
     private String id;
+    /**
+     * Lista identyfiaktorów opinii opisujacych produkt
+     */
     private List<String> reviews;
+    /**
+     * Data wpisania produktu do bazy
+     */
     private Date createdAt;
 
     /**
@@ -34,7 +55,7 @@ public class Product implements JSONModel<JSONObject> {
      *
      * @param id                Identyfikator produktu
      * @param mark              Marka produktu
-     * @param model             Model
+     * @param model             Model produktu
      * @param additionalRemarks Dodatkowe uwagi
      * @param category          Rodzaj produktu
      * @param reviews           Lista opinii

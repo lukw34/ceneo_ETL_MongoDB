@@ -25,7 +25,13 @@ import static java.util.stream.Collectors.toCollection;
 @Service("CeneoMongoService")
 public class CeneoMongoService implements MongoService {
 
+    /**
+     * Obiekt bazy danych, z ktora nawiazano polaczenie
+     */
     private MongoDatabase ceneoDB;
+    /**
+     * Zmienne srodowiskowe
+     */
     private Environment env;
 
 

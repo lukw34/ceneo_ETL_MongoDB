@@ -11,6 +11,9 @@ import java.io.*;
  */
 @Service("FileServiceImpl")
 public class FileServiceImpl implements FileService {
+    /**
+     * Głowny folder gdzie przechowywane sa pliki
+     */
     private final String  ROOT_PATH = "resource/";
 
     /**

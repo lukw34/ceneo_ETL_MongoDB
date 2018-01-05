@@ -10,6 +10,9 @@ import java.util.ArrayList;
  * @see uek.ceneo.etl.models.JSONModel
  */
 public class ReviewList implements JSONModel<JSONArray> {
+    /**
+     * Lista opinii
+     */
     private ArrayList<JSONModel> reviews;
 
     /**

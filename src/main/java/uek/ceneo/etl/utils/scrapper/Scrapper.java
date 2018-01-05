@@ -7,7 +7,9 @@ import org.jsoup.nodes.Document;
  * Klasa odpowiedzialna za udostepnienie metod umozliwiajacch analize danych odnosnie konkretnego produktu
  */
 public class Scrapper {
-
+    /**
+     * Reprezentuje polaczenie ze strona internetowa
+     */
     private CeneoConnection connection;
 
     /**

@@ -22,17 +22,49 @@ import org.json.JSONObject;
  * @see uek.ceneo.etl.models.JSONModel
  */
 public class Review implements JSONModel {
-
+    /**
+     * Wady produktu
+     */
     private String disadvantages;
+    /**
+     * Zalety produktu
+     */
     private String advantages;
+    /**
+     * Podsumowanie opinii
+     */
     private String productReview;
+    /**
+     * Liczba gwiazdek
+     */
     private double reviewScoreCount;
+    /**
+     * Autor opinii
+     */
     private String reviewerName;
+    /**
+     * Data wystawienia opinii
+     */
     private String reviewTime;
+    /**
+     * Ile osob uznalo opinie za przydatna
+     */
     private int voteYes;
+    /**
+     * Ile osob uznalo opinie za nieprzydatna
+     */
     private int voteNo;
+    /**
+     * Identyfikator produktu
+     */
     private String productId;
+    /**
+     * POLECAM/ NIE POLECAM
+     */
     private String reviewSummary;
+    /**
+     * Identyfikator opinii
+     */
     private String id;
 
     /**

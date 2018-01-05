@@ -10,10 +10,21 @@ import java.io.IOException;
  * Zastosowano tutaj wzorzec projektowy o nazwie singleton.
  */
 public class CeneoConnection {
-
+    /**
+     * Adres url strony
+     */
     private final String URL = "https://www.ceneo.pl/";
+    /**
+     * Identyfikator produktu
+     */
     private String id = null;
+    /**
+     * Dokument pobrany na podstawie adresu url
+     */
     private Document doc = null;
+    /**
+     * Instancja klasy
+     */
     private static CeneoConnection instance;
 
     /**
@@ -28,6 +39,11 @@ public class CeneoConnection {
         return instance;
     }
 
+    /**
+     * Ustawia id produktu
+     *
+     * @param id Identyfikator produktu
+     */
     public void setId(String id) {
         this.id = id;
     }

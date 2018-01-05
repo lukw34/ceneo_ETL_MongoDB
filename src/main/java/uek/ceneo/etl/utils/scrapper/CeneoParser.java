@@ -14,6 +14,9 @@ import java.util.stream.Collectors;
  * Parser pliku html zawierajacego dane z serwisu ceneo
  */
 public class CeneoParser implements Parser<CeneoProduct> {
+    /**
+     * Dokument podlegajacy analizie
+     */
     private Document doc;
 
 
@@ -26,7 +29,12 @@ public class CeneoParser implements Parser<CeneoProduct> {
         this.doc = doc;
     }
 
-
+    /**
+     * Analizuje pojedyncza strone zawierajaca opinie
+     *
+     * @param listOfOpinions Lista opinii na stronie
+     * @param ceneoProduct Produkt do ktorego opinie powinny zostac przypisane
+     */
     private void parseSingleOpinionPage(Elements listOfOpinions, CeneoProduct ceneoProduct) {
         for (Element element : listOfOpinions) {
             String disadvantages = element.select("div.cons-cell ul li").text();
@@ -45,6 +53,11 @@ public class CeneoParser implements Parser<CeneoProduct> {
         }
     }
 
+    /**
+     * Pobiera wszystkie opinie i dokonuje ich parsowania
+     *
+     * @param ceneoProduct Produkt do ktorego maja zostac przypisane opinie
+     */
     private void opinionParsing(CeneoProduct ceneoProduct) {
         String disadvantages, advantages, productReview = "", reviewScoreCount = "", reviewerName = "", reviewTime = "",
                 voteYes = "", voteNo = "", reviewSummary = "", id;
@@ -74,6 +87,11 @@ public class CeneoParser implements Parser<CeneoProduct> {
         }
     }
 
+    /**
+     * Pobiera dane odnosnie produktu
+     *
+     * @param product Dane produktu
+     */
     private void titleParsing(CeneoProduct product) {
         String mark = "";
         StringBuilder model = new StringBuilder();
@@ -99,6 +117,11 @@ public class CeneoParser implements Parser<CeneoProduct> {
     }
 
 
+    /**
+     * Wyciaga informacje odnosnie kategorii do jakiej produkt nalezy
+     *
+     * @return Kategoria produktu
+     */
     private String getCategory() {
 
         Elements elements = this.doc.select("div.wrapper").select("nav.breadcrumbs");
