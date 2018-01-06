@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
+import org.springframework.shell.table.Table;
 import uek.ceneo.etl.services.MongoService;
 import uek.ceneo.etl.services.TableService;
 
@@ -48,9 +49,10 @@ public class ListComponent {
      * @see org.springframework.shell.standard.ShellMethod
      */
     @ShellMethod(value = "Pobiera liste produktów zapisanych do bazy.", key = {"LP", "list-products", "lp"})
-    public String listProduct() {
+    public Table listProduct() {
         ArrayList<String> properties = new ArrayList<>();
         properties.add("id");
+        properties.add("name");
         properties.add("mark");
         properties.add("category");
         properties.add("additionalRemarks");
@@ -65,7 +67,7 @@ public class ListComponent {
      * @see org.springframework.shell.standard.ShellMethod
      */
     @ShellMethod(value = "Pobiera liste opinii zapisanych do bazy dla produktu o podanym identyfikatorze.", key = {"LR", "list-reviews", "lr"})
-    public String listReviews(
+    public Table listReviews(
             @ShellOption(help = "Identyfikator produktu dla ktoreg maja zostac pobrane opinie") String id
     ) {
         StringBuilder log = new StringBuilder();
@@ -85,7 +87,6 @@ public class ListComponent {
             ArrayList<String> properties = new ArrayList<>();
             properties.add("disadvantages");
             properties.add("advantages");
-            properties.add("productReview");
             properties.add("reviewScoreCount");
             properties.add("reviewerName");
             properties.add("reviewTime");
@@ -97,6 +98,7 @@ public class ListComponent {
             return this.tableService.getTable(documents, properties);
         }
         log.append("Produkt o identyfikatorze ").append(id).append(" nie istnieje.");
-        return log.toString();
+        System.out.println(log.toString());
+        return null;
     }
 }

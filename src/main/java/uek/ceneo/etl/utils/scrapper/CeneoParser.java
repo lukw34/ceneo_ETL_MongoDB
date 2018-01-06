@@ -99,7 +99,8 @@ public class CeneoParser implements Parser<CeneoProduct> {
 
         Elements elem = doc.select("div.wrapper").select("div.product-content");
         Elements elem2 = doc.select("div.wrapper").select("nav.breadcrumbs");
-
+        String name = elem.select("h1.product-name").text();
+        System.out.println(name);
         for (Element el : elem) {
             additionalRemarks = el.select("div.ProductSublineTags").text();
         }
@@ -113,7 +114,7 @@ public class CeneoParser implements Parser<CeneoProduct> {
             }
         }
 
-        product.setProperties(mark, model.toString(), additionalRemarks);
+        product.setProperties(mark, model.toString(), additionalRemarks, name);
     }
 
 

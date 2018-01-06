@@ -16,11 +16,12 @@ public interface CeneoProduct {
     /**
      * Ustawia atrybuty produktu podane w argumentach funkcji
      *
-     * @param mark Marka
-     * @param model Model
+     * @param mark              Marka
+     * @param model             Model
      * @param additionalRemarks Dodatkowe uwagi
+     * @param name              Nazwa produktu
      */
-    void setProperties(String mark, String model, String additionalRemarks);
+    void setProperties(String mark, String model, String additionalRemarks, String name);
 
     /**
      * Pobiera marke produktu
@@ -33,7 +34,6 @@ public interface CeneoProduct {
      * Pobiera model produktu
      *
      * @return model produktu
-     *
      */
     String getModel();
 
@@ -57,6 +57,13 @@ public interface CeneoProduct {
      * @return Kategoria produktu
      */
     String getId();
+
+    /**
+     * Pobiera nazwe produktu
+     *
+     * @return nazwe produktu
+     */
+    String getName();
 
     /**
      * Pobiera liste opinii

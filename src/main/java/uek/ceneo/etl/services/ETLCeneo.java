@@ -109,16 +109,20 @@ public class ETLCeneo implements ETL {
     public String load(String id) {
         String jsonProduct = fileService.read("product_" + id);
         String jsonReviews = fileService.read("reviews_" + id);
-        fileService.clear("product_" + id);
-        fileService.clear("reviews_" + id);
-        boolean isInsertProduct = ceneoMongoService.insert("products", jsonProduct);
-        ArrayList<Boolean> isOpinionsInserted = ceneoMongoService.insertArray("reviews", jsonReviews);
         StringBuilder log = new StringBuilder();
-        if (isInsertProduct) {
-            log.append("Wpisano produkt o id ").append(id).append("\n");
-        }
+        if (jsonProduct.length() > 0) {
+            fileService.clear("product_" + id);
+            fileService.clear("reviews_" + id);
+            boolean isInsertProduct = ceneoMongoService.insert("products", jsonProduct);
+            ArrayList<Boolean> isOpinionsInserted = ceneoMongoService.insertArray("reviews", jsonReviews);
+            if (isInsertProduct) {
+                log.append("Wpisano produkt o id ").append(id).append("\n");
+            }
 
-        log.append("Wpisano ").append(isOpinionsInserted.stream().filter(flag -> flag).count()).append(" opinii.\n");
+            log.append("Wpisano ").append(isOpinionsInserted.stream().filter(flag -> flag).count()).append(" opinii.\n");
+        } else {
+            log.append("Brak danych do wykonania procesu Load !!\n");
+        }
         return log.toString();
     }
 }

@@ -1,10 +1,7 @@
 package uek.ceneo.etl.services;
 
 import org.bson.Document;
-import org.springframework.shell.table.ArrayTableModel;
-import org.springframework.shell.table.BorderStyle;
-import org.springframework.shell.table.TableBuilder;
-import org.springframework.shell.table.TableModel;
+import org.springframework.shell.table.*;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -29,7 +26,7 @@ public class TableServiceCLI implements TableService {
      * @return Tablica jako ciag znakow
      */
     @Override
-    public String getTable(ArrayList<Document> doc, ArrayList<String> properties) {
+    public Table getTable(ArrayList<Document> doc, ArrayList<String> properties) {
         Function<Document, String[]> generateRow = document -> {
             ArrayList<String> row = new ArrayList<>();
             properties.forEach(property -> row.add(document.get(property).toString()));
@@ -45,7 +42,7 @@ public class TableServiceCLI implements TableService {
         TableModel model = new ArrayTableModel(Stream.of(headers, tableData).flatMap(Stream::of)
                 .toArray(String[][]::new));
         TableBuilder tableBuilder = new TableBuilder(model);
-        tableBuilder.addFullBorder(BorderStyle.fancy_heavy);
-        return tableBuilder.build().render(120);
+        tableBuilder.addFullBorder(BorderStyle.oldschool);
+        return tableBuilder.build();
     }
 }

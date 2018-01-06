@@ -38,6 +38,10 @@ public class Product implements JSONModel<JSONObject> {
      */
     private String category;
     /**
+     * Nazwa prodkuktu
+     */
+    private String name;
+    /**
      * Identyfikator produktu
      */
     private String id;
@@ -61,7 +65,7 @@ public class Product implements JSONModel<JSONObject> {
      * @param reviews           Lista opinii
      */
     public Product(String id, String mark, String model, String additionalRemarks,
-                   String category, List<String> reviews) {
+                   String category, List<String> reviews, String name) {
         Calendar calendar = Calendar.getInstance();
         this.id = id;
         this.mark = mark;
@@ -70,6 +74,7 @@ public class Product implements JSONModel<JSONObject> {
         this.category = category;
         this.reviews = reviews;
         this.createdAt = calendar.getTime();
+        this.name = name;
     }
 
     /**
@@ -100,6 +105,7 @@ public class Product implements JSONModel<JSONObject> {
     @Override
     public JSONObject toJSONObject() {
         return new JSONObject()
+                .put("name", name)
                 .put("id", id)
                 .put("model", model)
                 .put("mark", mark)

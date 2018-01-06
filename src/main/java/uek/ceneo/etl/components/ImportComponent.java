@@ -10,6 +10,7 @@ import uek.ceneo.etl.services.FileService;
 import uek.ceneo.etl.services.MongoService;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 /**
  * Klasa zawiera komendy zwiazane z importem danych z bazy do plikow
@@ -63,7 +64,7 @@ public class ImportComponent {
             @ShellOption(
                     help = "Typ pliku do ktorego maja zostac zaimportowane pliki (csv lub txt)",
                     defaultValue = "csv"
-            ) String dataFormat,
+            ) String format,
             @ShellOption(
                     help = "Pobiera wszystkie opinie",
                     defaultValue = ShellOption.NONE
@@ -83,18 +84,26 @@ public class ImportComponent {
             fileName = "reviews_" + id;
         }
 
-        switch (dataFormat) {
+        switch (format) {
             case "csv":
                 data = this.csvService.build(items);
-                break;
+                long size = fileService.write(fileName + "." + format, data);
+                log.append("Stworzono plik ").append(format).append(" o rozmiarze ").append(size).append(" kb");
+                return log.toString();
             case "txt":
-                data = items.toString();
-                break;
+                items.forEach(document -> fileService.write(document.get("id") + ".txt", String
+                        .join("\n***\n", document
+                                .values()
+                                .stream()
+                                .map(Object::toString)
+                                .collect(Collectors.toList())
+                                .toArray(new String[document.values().size()]))));
+                log.append("Stworzono ").append(items.size()).append(" pliki tekstowe zawierajace opini.");
+                return log.toString();
             default:
-                return log.append("Dane nie mogą zostawic przetworzone do pliku ").append(dataFormat).append(".").toString();
+                return log.append("Dane nie mogą zostawic przetworzone do pliku ").append(format).append(".").toString();
         }
 
-        long size = fileService.write(fileName + "." + dataFormat, data);
-        return log.append("Stworzono plik ").append(dataFormat).append(" o rozmiarze ").append(size).append(" kb").toString();
+
     }
 }

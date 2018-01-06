@@ -57,7 +57,8 @@ public class CeneoTransformationService implements TransformationService {
                 ceneoProductImpl.getModel(),
                 ceneoProductImpl.getAdditionalRemarks(),
                 ceneoProductImpl.getCategory(),
-                reviews
+                reviews,
+                ceneoProductImpl.getName()
         );
     }
 }

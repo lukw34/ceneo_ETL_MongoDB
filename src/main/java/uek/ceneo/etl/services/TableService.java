@@ -1,6 +1,7 @@
 package uek.ceneo.etl.services;
 
 import org.bson.Document;
+import org.springframework.shell.table.Table;
 
 import java.util.ArrayList;
 
@@ -15,5 +16,5 @@ public interface TableService {
      * @param properties Atrybuty, ktore maja zostac pokazane uzytkownikowi
      * @return Tablica jako ciag znakow
      */
-    String getTable(ArrayList<Document> doc, ArrayList<String> properties);
+    Table getTable(ArrayList<Document> doc, ArrayList<String> properties);
 }

@@ -23,6 +23,10 @@ public class CeneoProductImpl implements CeneoProduct {
      */
     private String category;
     /**
+     * Nazwa produktu
+     */
+    private String name;
+    /**
      * Identyfikator produktu
      */
     private String id;
@@ -49,12 +53,14 @@ public class CeneoProductImpl implements CeneoProduct {
      * @param mark              Marka
      * @param model             Model
      * @param additionalRemarks Dodatkowe uwagi
+     * @param name              Nazwa prouktu
      */
     @Override
-    public void setProperties(String mark, String model, String additionalRemarks) {
+    public void setProperties(String mark, String model, String additionalRemarks, String name) {
         this.mark = mark;
         this.model = model;
         this.additionalRemarks = additionalRemarks;
+        this.name = name;
     }
 
     /**
@@ -115,6 +121,16 @@ public class CeneoProductImpl implements CeneoProduct {
     @Override
     public String getId() {
         return id;
+    }
+
+    /**
+     * Pobiera nezwe produktu
+     *
+     * @return Nazwa  produktu
+     */
+    @Override
+    public String getName() {
+        return this.name;
     }
 
     /**
