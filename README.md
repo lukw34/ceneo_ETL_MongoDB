@@ -1,6 +1,8 @@
 # ceneo_ETL_MongoDB
 
+Aplikacja zajmuje sie obsluga procesu ETL dla prouktów i ich opinii w serwisie Ceneo.pl.
 
-
-
-### 1) Instalacja
+Autorzy:
+* Łukasz Walewski
+* Yaroslav Krupa
+* Filip Jasiak
